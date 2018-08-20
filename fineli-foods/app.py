@@ -58,11 +58,11 @@ def food(FOODID):
 #  food = Food.query.filter(food.FOODNAME.startswith(a)).all()
 #  return render_template("list.html", foods=foods)
 
-@app.route("/search")
-def search():
-  name = request.args.get('query')
-  foods = Food.query.filter(Food.FOODNAME.contains(name)).all()
-  return render_template("list.html", foods=foods)
+#@app.route("/search")
+#def search():
+#  name = request.args.get('query')
+#  foods = Food.query.filter(Food.FOODNAME.contains(name)).all()
+#  return render_template("list.html", foods=foods)
 
 
 # If this is running from the command line
