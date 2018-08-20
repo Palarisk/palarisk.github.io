@@ -3,16 +3,49 @@
 {% block content %}
 
 <div class="jumbotron">
-  <h1 class="display-4">{{ food.FOODNAME }}</h1>
-  <p> This food belongs to the class: {{ food.IGCLASS}}
-
+  <h1 class="display-6">{{ food.FOODNAME }}</h1>
+  
   </div>
   <div class="col-7">
 
  
 
-    Here will be the nutrition data:
+   <h2>Nutrition info:</h2>
+    <h4>per 100g of product</h4>
+
+<table class="table">
+  {% for nutr in food.imp_nutrs %}
+  <tr>
+    <td>
+    {% if nutr.EUFDNAME == "ENERC" %}
+    Energy (kJ)
+  {% endif %} 
+
+  {% if nutr.EUFDNAME == "PROT" %}
+    Protein (g)
+  {% endif %}
+
+{% if nutr.EUFDNAME == "SUGAR" %}
+    Sugar (g)
+  {% endif %}
+
+  {% if nutr.EUFDNAME == "FAT" %}
+    Fat (g)
+  {% endif %} 
+
+    </td>
+    <td>
+    {{ nutr.BESTLOC }}
+    </td>
+  </tr>
+{% endfor %}
+</table>
+
+<p>Source: Terveyden ja hyvinvoinnin laitos, Fineli</p>
   </div>
+
 </div>
+
+
 
 {% endblock %}

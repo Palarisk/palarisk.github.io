@@ -1,13 +1,17 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-  <p>This is a list of foods from the Finnish national nutrition database, Fineli:</p>
+  <h1>Nutrition Info for (Almost) Everything</h1>
+
+  <p>Click on a food item to find out its nutritional values or use the search box above.</p>
   <ul>
     {% for food in foods %}
       <li> 
       <a href="{{ url_for('food', FOODID=food.FOODID) }}">{{ food.FOODNAME }} </a></li>
     {% endfor %}
   </ul>
+
+
 
   <p>Source: Terveyden ja hyvinvoinnin laitos, Fineli</p>
 {% endblock %}

@@ -19,20 +19,25 @@ class Food(db.Model):
   }
   FOODID = db.Column(db.Integer, primary_key=True)
   # this model has a relationship with the Score model
-#  nutrs = db.relationship('Nutrs')
+  nutrients = db.relationship('Nutr')
 
-#class Nutr(db.Model):
-#  __tablename__ = 'nutrs'
-#  __table_args__ = {
-#    'autoload': True,
-#    'autoload_with': db.engine
-#  }
+  @property
+  def imp_nutrs(self):
+    return [nutrient for nutrient in self.nutrients if nutrient.EUFDNAME in ['ENERC', 'PROT', 'SUGAR', 'FAT' ]]
+  
+class Nutr(db.Model):
+  __tablename__ = 'nutrs'
+  __table_args__ = {
+    'autoload': True,
+    'autoload_with': db.engine
+  }
   # You add ForeignKey(schools.dbn) when declaring a column
   # to say that the dbn column you're talking about (dbn = )
   # is connected to the dbn column in the schools table (schools.dbn)
-#  FOODID = db.Column(db.Integer, ForeignKey('foods.FOODID'), primary_key=True)
+  index=db.Column(db.Integer, primary_key=True)
+  FOODID = db.Column(db.Integer, ForeignKey('foods.FOODID'))
 
-#Nää on nyt sekasin että mitä mikin on:
+
 @app.route("/")
 def start():
   foods = Food.query.all()
@@ -48,11 +53,16 @@ def food(FOODID):
   food = Food.query.filter_by(FOODID=FOODID).first()
   return render_template("show.html", food=food)
 
-# @app.route("/search")
-# def search():
-#   name = request.args.get('query')
-#   fineli = School.query.filter(School.school_name.contains(name)).all()
-#   return render_template("list.html", fineli=fineli)
+#@app.route("/by_letter/<letter>/")
+#def by_letter(letter):
+#  food = Food.query.filter(food.FOODNAME.startswith(a)).all()
+#  return render_template("list.html", foods=foods)
+
+@app.route("/search")
+def search():
+  name = request.args.get('query')
+  foods = Food.query.filter(Food.FOODNAME.contains(name)).all()
+  return render_template("list.html", foods=foods)
 
 
 # If this is running from the command line
