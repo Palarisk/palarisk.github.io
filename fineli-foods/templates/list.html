@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <p>This is a list of foods from the Finnish national nutrition database, Fineli:</p>
+  <ul>
+    {% for food in foods %}
+      <li> 
+      <a href="{{ url_for('food', FOODID=food.FOODID) }}">{{ food.FOODNAME }} </a></li>
+    {% endfor %}
+  </ul>
+
+  <p>Source: Terveyden ja hyvinvoinnin laitos, Fineli</p>
+{% endblock %}
+
+
+<!--
+
+ -->
